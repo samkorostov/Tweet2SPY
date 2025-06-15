@@ -60,6 +60,6 @@ So does this work? **Kinda?** It is better than random guessing (although not by
    - Use **time-based split** (train on 2009–2019, test on 2020-2021).
    - Evaluate with ROC-AUC, accuracy, and confusion matrix.
 5. **Success Criteria:**
-    - **ROC-AUC >= 0.60** on 2023-24 hold-out set.
+    - **ROC-AUC >= 0.60** on 2020-2021 hold-out set.
 
 
