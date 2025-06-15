@@ -1,2 +1,7 @@
 .env
-data/
+data/*
+.venv/
+
+!data/events_with_features.parquet
+!data/events_embeddings.npy
+!data/xgb_large_move_model.joblib

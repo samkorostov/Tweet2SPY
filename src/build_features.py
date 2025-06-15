@@ -5,13 +5,15 @@ import numpy as np
 from tqdm import tqdm
 tqdm.pandas()
 
-device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(device)
 
 events = pd.read_parquet("data/events.parquet")
 spy = pd.read_parquet("data/spy.parquet").set_index('datetime')
+spy = spy[~spy.index.duplicated(keep='first')]  # Remove duplicates
 
 
-device_num = 0 if device.type == 'mps' else -1
+device_num = 0 if device.type == 'cuda' else -1
 finbert_pipeline = pipeline(
     "sentiment-analysis",
     model="yiyanghkust/finbert-tone",
@@ -30,7 +32,7 @@ for i in tqdm(range(0, len(texts), batch_size), desc="Processing batches"):
     results.extend(batch_results)
     
 def get_finbert_polarity(result):
-    label = result['label'].toLower()
+    label = result['label'].lower()
     score = result['score']
     if label == 'positive':
         return score
