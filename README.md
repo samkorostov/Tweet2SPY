@@ -33,9 +33,9 @@ So does this work? **Kinda?** It is better than random guessing (although not by
 
 ## **Data Sources**
 - **Tweets:**
-    - [Kaggle Trump Tweet Archive CSV] (https://www.kaggle.com/datasets/headsortails/trump-twitter-archive/data)
+    - [Kaggle Trump Tweet Archive CSV](https://www.kaggle.com/datasets/headsortails/trump-twitter-archive/data)
 - **Market Prices:**
-    - [1-minute SPY bars CSV] (https://www.kaggle.com/datasets/gratefuldata/intraday-stock-data-1-min-sp-500-200821)
+    - [1-minute SPY bars CSV](https://www.kaggle.com/datasets/gratefuldata/intraday-stock-data-1-min-sp-500-200821)
 
 ## **Pipeline Overview**
 1. **Environment Setup:**  
