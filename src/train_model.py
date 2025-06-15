@@ -16,23 +16,19 @@ y = events['large_move'].values
 
 
 events['event_time'] = pd.to_datetime(events['event_time'])
-train_idx = events['event_time'] < '2023-10-01'
-test_idx = events['event_time'] >= '2023-10-01'
+split_date = pd.Timestamp("2020-01-01", tz="UTC")
+train_idx = events['event_time'] < split_date
+test_idx = events['event_time'] >= split_date
 
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, stratify=y, random_state=42
-)
+X_train, y_train = X[train_idx], y[train_idx]
+X_test, y_test = X[test_idx], y[test_idx]
 
-n_negative = np.sum(y_train == 0)
-n_positive = np.sum(y_train == 1)
-scale_pos_weight = n_negative / n_positive
+
 
 clf = XGBClassifier(
     max_depth=4,
     n_estimators=300,
     objective= 'binary:logistic',
-    scale_pos_weight=scale_pos_weight,
     use_label_encoder=False,
     eval_metric='logloss',
     random_state=42
@@ -40,7 +36,7 @@ clf = XGBClassifier(
 
 clf.fit(X_train, y_train)
 
-threshold = 0.390
+threshold = 0.123
 y_pred_prob = clf.predict_proba(X_test)[:, 1]
 y_pred = (y_pred_prob >= threshold).astype(int)
 
